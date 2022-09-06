@@ -28,6 +28,8 @@ Before running any make target, make sure you satisfy the prerequisites listed b
     Reload the package selected as ```DEBUG_PACKAGE```, in the NSO
 * ```make shell```:
     Enter the NSO CLI
+* ```NAME=<name of your new package> make package```:
+    Create a new package for ```NSO_INSTALL_FILE``` NSO version with a name of your choosing under ```packages```
 
 ## VSCode debugging
 
