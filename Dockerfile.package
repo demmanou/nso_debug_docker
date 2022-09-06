@@ -1,0 +1,27 @@
+FROM debian:buster
+
+RUN apt-get update \
+  && apt-get -y install default-jre-headless \
+  openssh-client \
+  python3
+
+ARG NSO_INSTALL_FILE
+
+COPY nso-install-files/$NSO_INSTALL_FILE /tmp
+
+RUN groupadd ncsadmin -g 1001 \
+  && useradd -s /bin/bash -c "NSO runtime user" -mN -g ncsadmin -u 1001 nsoadmin
+
+RUN sh /tmp/$NSO_INSTALL_FILE --system-install --run-as-user nsoadmin
+
+RUN cp /etc/ncs/ncs.conf /etc/ncs/ncs.conf.orig \
+  && cp /opt/ncs/current/bin/ncs-start-python-vm /opt/ncs/current/bin/ncs-start-python-vm.orig
+
+WORKDIR /tmp
+
+ARG NEW_PACKAGE_NAME
+
+RUN . /opt/ncs/current/ncsrc \
+  && ncs-make-package --service-skeleton python-and-template $NEW_PACKAGE_NAME
+
+ENTRYPOINT /bin/bash
