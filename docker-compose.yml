@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  nso:
+    command: /bin/bash
+    tty: true
+    platform: linux/amd64
+    image: "${IMAGE_NAME}"
+    container_name: "${CONTAINER_NAME}"
+    build:
+      context: .
+      args:
+        NSO_INSTALL_FILE: "${NSO_INSTALL_FILE}"
+        DEBUG_PACKAGE: "${DEBUG_PACKAGE}"
+    ports:
+      - target: 2024
+        published: 52024
+      - target: 8080
+        published: 58080
+      - target: 8888
+        published: 58888
+      - target: 5678
+        published: 55678
+    networks:
+      - nso
+
+networks:
+  nso:

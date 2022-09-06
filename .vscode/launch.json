@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "NSO Remote Attach",
+      "type": "python",
+      "request": "attach",
+      "port": 55678,
+      "host": "localhost",
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/packages",
+          "remoteRoot": "/var/opt/ncs/state/packages-in-use.cur/1"
+        }
+      ]
+    }
+  ]
+}
