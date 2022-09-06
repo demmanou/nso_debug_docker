@@ -13,9 +13,11 @@ $(error DEBUG_PACKAGE is not set)
 endif
 
 CONTAINER_NAME = nso_debug_nso_1
+TEMP_CONTAINER_NAME = nso_debug_nso_temp_1
 IMAGE_NAME = nso_debug_nso
+TEMP_IMAGE_NAME = nso_debug_nso_temp
 
-.PHONY: verify start clean reload-package shell
+.PHONY: verify start clean reload-package shell package
 
 verify:
 	@echo 'Selected $(NSO_INSTALL_FILE) for the installation'
@@ -46,3 +48,10 @@ start:
 	@docker exec -it $(CONTAINER_NAME) bash -lc 'source /opt/ncs/current/ncsrc \
 	&& su - nsoadmin -c "source /opt/ncs/current/ncsrc \
 	&& echo show packages package oper-status | ncs_cli -C"'
+
+package:
+	@docker build --build-arg NSO_INSTALL_FILE=$(NSO_INSTALL_FILE) --build-arg NEW_PACKAGE_NAME=$(NAME) -t $(TEMP_IMAGE_NAME) -f Dockerfile.package .
+	@docker run -itd --name $(TEMP_CONTAINER_NAME) $(TEMP_IMAGE_NAME)
+	@NEW_PACKAGE_NAME=$(NAME) TEMP_CONTAINER_NAME=$(TEMP_CONTAINER_NAME) sh scripts/copy_package_from.sh
+	@docker rm -f $(TEMP_CONTAINER_NAME) > /dev/null 2>&1
+	@docker image rm $(TEMP_IMAGE_NAME):latest > /dev/null 2>&1
