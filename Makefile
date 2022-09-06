@@ -38,6 +38,7 @@ shell:
 	&& ncs_cli -C"'
 
 start:
+	@sh scripts/check_package_dir.sh
 	@DEBUG_PACKAGE=$(DEBUG_PACKAGE) NSO_INSTALL_FILE=$(NSO_INSTALL_FILE) \
 	CONTAINER_NAME=$(CONTAINER_NAME) IMAGE_NAME=$(IMAGE_NAME) docker-compose up -d
 	@CONTAINER_NAME=$(CONTAINER_NAME) sh scripts/start_ncs.sh
