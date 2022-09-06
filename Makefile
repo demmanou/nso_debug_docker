@@ -16,7 +16,6 @@ CONTAINER_NAME = nso_debug_nso_1
 TEMP_CONTAINER_NAME = nso_debug_nso_temp_1
 IMAGE_NAME = nso_debug_nso
 TEMP_IMAGE_NAME = nso_debug_nso_temp
-NEW_PACKAGE_NAME = new_package
 
 .PHONY: verify start clean reload-package shell package
 
@@ -51,8 +50,8 @@ start:
 	&& echo show packages package oper-status | ncs_cli -C"'
 
 package:
-	@docker build --build-arg NSO_INSTALL_FILE=$(NSO_INSTALL_FILE) --build-arg NEW_PACKAGE_NAME=$(NEW_PACKAGE_NAME) -t $(TEMP_IMAGE_NAME) -f Dockerfile.package .
+	@docker build --build-arg NSO_INSTALL_FILE=$(NSO_INSTALL_FILE) --build-arg NEW_PACKAGE_NAME=$(NAME) -t $(TEMP_IMAGE_NAME) -f Dockerfile.package .
 	@docker run -itd --name $(TEMP_CONTAINER_NAME) $(TEMP_IMAGE_NAME)
-	@NEW_PACKAGE_NAME=$(NEW_PACKAGE_NAME) TEMP_CONTAINER_NAME=$(TEMP_CONTAINER_NAME) sh scripts/copy_package_from.sh
+	@NEW_PACKAGE_NAME=$(NAME) TEMP_CONTAINER_NAME=$(TEMP_CONTAINER_NAME) sh scripts/copy_package_from.sh
 	@docker rm -f $(TEMP_CONTAINER_NAME) > /dev/null 2>&1
 	@docker image rm $(TEMP_IMAGE_NAME):latest > /dev/null 2>&1
