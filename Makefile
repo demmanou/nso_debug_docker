@@ -18,7 +18,7 @@ IMAGE_NAME = nso_debug_nso
 TEMP_IMAGE_NAME = nso_debug_nso_temp
 NEW_PACKAGE_NAME = new_package
 
-.PHONY: verify start clean reload-package shell
+.PHONY: verify start clean reload-package shell package
 
 verify:
 	@echo 'Selected $(NSO_INSTALL_FILE) for the installation'
