@@ -38,7 +38,7 @@ The debugger used is the Microsoft [debugpy](https://github.com/microsoft/debugp
 import debugpy; debugpy.breakpoint()
 ```
 In VSCode:
-1. Make sure you're in the directory where ```.vscode``` is in (the dropdown "Start Debugging" menu, should read "NSO Remote Attach")
-2. Enter the "Run & Debug" mode from the Activity Bar on the left hand side by default
+1. Enter the "Run & Debug" mode from the Activity Bar on the left hand side by default
+2. Make sure you're in the directory where ```.vscode``` is in (the dropdown "Start Debugging" menu, should read "NSO Remote Attach")
 3. Choose "Start Debugging" once your container is up and running 
 4. Typically, breakpoints are placed in the service/ action callback body. In this case, requesting the action be run, or the service be commited or dry-run commited, will halt your code at the breakpoints you've previously defined and allow you to debug in VSCode
