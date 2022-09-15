@@ -8,10 +8,6 @@ ifndef NSO_INSTALL_FILE
 $(error NSO_INSTALL_FILE is not set)
 endif
 
-ifndef DEBUG_PACKAGE
-$(error DEBUG_PACKAGE is not set)
-endif
-
 CONTAINER_NAME = nso_debug_nso_1
 TEMP_CONTAINER_NAME = nso_debug_nso_temp_1
 IMAGE_NAME = nso_debug_nso

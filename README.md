@@ -1,4 +1,4 @@
-# NSO Docker & Debug Package
+# NSO Docker & Debug
 
 NSO Docker container with VSCode debugger integration for Python package
 
@@ -9,14 +9,14 @@ Before running any make target, make sure you satisfy the prerequisites listed b
 ### Prerequisites
 
 1. Download and place the NSO installation file (*installer.bin) under the ```nso-install-files``` directory
-2. Place your packages under the ```packages``` directory
+2. Place your packages under the ```packages``` directory (optional)
 3. Set values in ```config.env```. Example:
     ```sh
     NSO_INSTALL_FILE=nso-5.6.5.linux.x86_64.installer.bin
-    DEBUG_PACKAGE=my_package
+    DEBUG_PACKAGE=my_package (optional)
     ```
-4. Add Python package dependencies (if any) under ```requirements.txt```
-5. Add required NSO config (if any) under ```nso_config.xml```
+4. Add Python package dependencies under ```requirements.txt``` (optional)
+5. Add required NSO config under ```nso_config.xml``` (optional)
 
 ## Running
 
@@ -42,3 +42,6 @@ In VSCode:
 2. Make sure you're in the directory where ```.vscode``` is in (the dropdown "Start Debugging" menu, should read "NSO Remote Attach")
 3. Choose "Start Debugging" once your container is up and running 
 4. Typically, breakpoints are placed in the service/ action callback body. In this case, requesting the action be run, or the service be commited or dry-run commited, will halt your code at the breakpoints you've previously defined and allow you to debug in VSCode
+
+### Debugging remotely
+If running on a remote host, the only change required, assuming port 55678 is not blocked, would be changing the ```"host"``` value in ```.vscode/launch.json``` to that of the remote host
