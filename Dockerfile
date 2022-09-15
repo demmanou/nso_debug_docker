@@ -33,9 +33,6 @@ RUN pip3 install -r /tmp/requirements.txt \
 
 ADD packages/ /var/opt/ncs/packages
 
-RUN . /opt/ncs/current/ncsrc \
-  && for d in /var/opt/ncs/packages/*/; do make all -C $d/src; done
-
 EXPOSE 2024 8080 8888 5678
 
 ENTRYPOINT /bin/bash

@@ -3,8 +3,7 @@
 DIR=./packages
 
 if [ "$(ls $DIR)" ]; then
-    echo "Found packages!"
+    echo TRUE
 else
-    echo "No packages found!"
-    exit 1
+    echo FALSE
 fi

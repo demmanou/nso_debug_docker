@@ -16,6 +16,7 @@ CONTAINER_NAME = nso_debug_nso_1
 TEMP_CONTAINER_NAME = nso_debug_nso_temp_1
 IMAGE_NAME = nso_debug_nso
 TEMP_IMAGE_NAME = nso_debug_nso_temp
+ARE_PACKAGES = $(shell sh scripts/check_package_dir.sh)
 
 .PHONY: verify start clean reload-package shell package
 
@@ -38,11 +39,11 @@ shell:
 	&& ncs_cli -C"'
 
 start:
-	@sh scripts/check_package_dir.sh
 	@DEBUG_PACKAGE=$(DEBUG_PACKAGE) NSO_INSTALL_FILE=$(NSO_INSTALL_FILE) \
 	CONTAINER_NAME=$(CONTAINER_NAME) IMAGE_NAME=$(IMAGE_NAME) docker-compose up -d
 	@CONTAINER_NAME=$(CONTAINER_NAME) sh scripts/start_ncs.sh
 	@CONTAINER_NAME=$(CONTAINER_NAME) sh scripts/check_nso_status.sh
+	@ARE_PACKAGES=$(ARE_PACKAGES) CONTAINER_NAME=$(CONTAINER_NAME) sh scripts/compile_packages.sh
 	@output=`docker exec -it $(CONTAINER_NAME) bash -lc 'source /opt/ncs/current/ncsrc \
 	&& ncs_load -lm /tmp/nso_config.xml' 2>&1` && echo 'Configuration Loaded!' \
 	|| echo "No configuration loaded..."
