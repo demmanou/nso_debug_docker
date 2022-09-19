@@ -18,7 +18,7 @@ Before running any make target, make sure you satisfy the prerequisites listed b
 4. Add Python package dependencies under ```requirements.txt``` (optional)
 5. Add required NSO config under ```nso_config.xml``` (optional)
 
-## Running
+### Running
 
 * ```make start```:
     Deploy you custom NSO Docker container setup
